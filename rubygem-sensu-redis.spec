@@ -2,20 +2,19 @@
 %global gem_name sensu-redis
 
 Name:           rubygem-%{gem_name}
-Version:        2.1.0
-Release:        2%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        The Sensu Redis client library
 Group:          Development/Languages
 License:        MIT
 URL:            https://github.com/sensu/sensu-redis
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
-#Source1:        https://github.com/sensu/%{gem_name}/archive/v%{version}.tar.gz#/%{gem_name}-%{version}.tar.gz
 
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
 BuildRequires:  ruby
 BuildRequires:  rubygem(eventmachine)
-#BuildRequires:  rubygem(rspec)
+
 BuildArch:      noarch
 
 Requires:       rubygem(eventmachine)
@@ -59,13 +58,6 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
-#install -d -p %{_builddir}%{gem_instdir}
-#%if 0%{?dlrn} > 0
-#tar -xvzf %{SOURCE1} -C %{_builddir}/%{dlrn_nvr}/%{gem_instdir} --strip-components=1 %{gem_name}-%{version}/spec
-#%else
-#tar -xvzf %{SOURCE1} -C %{_builddir}/%{gem_name}-%{version}/%{gem_instdir} --strip-components=1 %{gem_name}-%{version}/spec
-#%endif
-
 # Run the test suite
 %check
 pushd .%{gem_instdir}
@@ -86,6 +78,9 @@ popd
 %{gem_instdir}/sensu-redis.gemspec
 
 %changelog
+* Fri Dec 1 2017 Martin Mágr <mmagr@redhat.com> - 2.2.0-1
+- Rebased to latest release for Sensu 1.1.x rebase
+
 * Fri Dec 23 2016 Martin Mágr <mmagr@redhat.com> - 2.1.0-1
 - Update to latest upstream release
 
